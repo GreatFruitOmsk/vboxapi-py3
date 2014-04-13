@@ -19,12 +19,16 @@ VboxBinDir = os.environ.get("VBOX_PROGRAM_PATH", None)
 VboxSdkDir = os.environ.get("VBOX_SDK_PATH", None)
 
 if VboxBinDir is None:
-    # Will be set by the installer
-    VboxBinDir = "C:\\Program Files\\Oracle\\VirtualBox\\"
+    if sys.platform.startswith('win'):
+        VboxBinDir = "C:\\Program Files\\Oracle\\VirtualBox\\"
+    elif sys.platform.startswith('darwin'):
+        VboxBinDir = "/Applications/VirtualBox.app/Contents/MacOS/"
 
 if VboxSdkDir is None:
-    # Will be set by the installer
-    VboxSdkDir = "C:\\Program Files\\Oracle\\VirtualBox\\sdk\\"
+    if sys.platform.startswith('win'):
+        VboxSdkDir = "C:\\Program Files\\Oracle\\VirtualBox\\sdk\\"
+    elif sys.platform.startswith('darwin'):
+        VboxBinDir = "/Applications/VirtualBox.app/Contents/MacOS/sdk/"
 
 os.environ["VBOX_PROGRAM_PATH"] = VboxBinDir
 os.environ["VBOX_SDK_PATH"] = VboxSdkDir
