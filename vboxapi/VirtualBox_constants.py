@@ -12,8 +12,8 @@
 #
 
 class VirtualBoxReflectionInfo:
-   def __init__(self, isSym):
-      self.isSym = isSym
+    def __init__(self, isSym):
+        self.isSym = isSym
 
     _Values = {
         'SettingsVersion': {
@@ -816,7 +816,7 @@ class VirtualBoxReflectionInfo:
     }
 
     _ValuesSym = {
-        'SettingsVersion': { 
+        'SettingsVersion': {
             'Null': 'Null',
             'v1_0': 'v1_0',
             'v1_1': 'v1_1',
@@ -836,11 +836,11 @@ class VirtualBoxReflectionInfo:
             'v1_14': 'v1_14',
             'Future': 'Future',
         },
-        'AccessMode': { 
+        'AccessMode': {
             'ReadOnly': 'ReadOnly',
             'ReadWrite': 'ReadWrite',
         },
-        'MachineState': { 
+        'MachineState': {
             'Null': 'Null',
             'PoweredOff': 'PoweredOff',
             'Saved': 'Saved',
@@ -868,21 +868,21 @@ class VirtualBoxReflectionInfo:
             'FirstTransient': 'FirstTransient',
             'LastTransient': 'LastTransient',
         },
-        'SessionState': { 
+        'SessionState': {
             'Null': 'Null',
             'Unlocked': 'Unlocked',
             'Locked': 'Locked',
             'Spawning': 'Spawning',
             'Unlocking': 'Unlocking',
         },
-        'CPUPropertyType': { 
+        'CPUPropertyType': {
             'Null': 'Null',
             'PAE': 'PAE',
             'Synthetic': 'Synthetic',
             'LongMode': 'LongMode',
             'TripleFaultReset': 'TripleFaultReset',
         },
-        'HWVirtExPropertyType': { 
+        'HWVirtExPropertyType': {
             'Null': 'Null',
             'Enabled': 'Enabled',
             'VPID': 'VPID',
@@ -891,23 +891,23 @@ class VirtualBoxReflectionInfo:
             'LargePages': 'LargePages',
             'Force': 'Force',
         },
-        'FaultToleranceState': { 
+        'FaultToleranceState': {
             'Inactive': 'Inactive',
             'Master': 'Master',
             'Standby': 'Standby',
         },
-        'LockType': { 
+        'LockType': {
             'Write': 'Write',
             'Shared': 'Shared',
             'VM': 'VM',
         },
-        'SessionType': { 
+        'SessionType': {
             'Null': 'Null',
             'WriteLock': 'WriteLock',
             'Remote': 'Remote',
             'Shared': 'Shared',
         },
-        'DeviceType': { 
+        'DeviceType': {
             'Null': 'Null',
             'Floppy': 'Floppy',
             'DVD': 'DVD',
@@ -916,48 +916,48 @@ class VirtualBoxReflectionInfo:
             'USB': 'USB',
             'SharedFolder': 'SharedFolder',
         },
-        'DeviceActivity': { 
+        'DeviceActivity': {
             'Null': 'Null',
             'Idle': 'Idle',
             'Reading': 'Reading',
             'Writing': 'Writing',
         },
-        'ClipboardMode': { 
+        'ClipboardMode': {
             'Disabled': 'Disabled',
             'HostToGuest': 'HostToGuest',
             'GuestToHost': 'GuestToHost',
             'Bidirectional': 'Bidirectional',
         },
-        'DragAndDropMode': { 
+        'DragAndDropMode': {
             'Disabled': 'Disabled',
             'HostToGuest': 'HostToGuest',
             'GuestToHost': 'GuestToHost',
             'Bidirectional': 'Bidirectional',
         },
-        'Scope': { 
+        'Scope': {
             'Global': 'Global',
             'Machine': 'Machine',
             'Session': 'Session',
         },
-        'BIOSBootMenuMode': { 
+        'BIOSBootMenuMode': {
             'Disabled': 'Disabled',
             'MenuOnly': 'MenuOnly',
             'MessageAndMenu': 'MessageAndMenu',
         },
-        'ProcessorFeature': { 
+        'ProcessorFeature': {
             'HWVirtEx': 'HWVirtEx',
             'PAE': 'PAE',
             'LongMode': 'LongMode',
             'NestedPaging': 'NestedPaging',
         },
-        'FirmwareType': { 
+        'FirmwareType': {
             'BIOS': 'BIOS',
             'EFI': 'EFI',
             'EFI32': 'EFI32',
             'EFI64': 'EFI64',
             'EFIDUAL': 'EFIDUAL',
         },
-        'PointingHIDType': { 
+        'PointingHIDType': {
             'None': 'None',
             'PS2Mouse': 'PS2Mouse',
             'USBMouse': 'USBMouse',
@@ -965,13 +965,13 @@ class VirtualBoxReflectionInfo:
             'ComboMouse': 'ComboMouse',
             'USBMultiTouch': 'USBMultiTouch',
         },
-        'KeyboardHIDType': { 
+        'KeyboardHIDType': {
             'None': 'None',
             'PS2Keyboard': 'PS2Keyboard',
             'USBKeyboard': 'USBKeyboard',
             'ComboKeyboard': 'ComboKeyboard',
         },
-        'DhcpOpt': { 
+        'DhcpOpt': {
             'SubnetMask': 'SubnetMask',
             'TimeOffset': 'TimeOffset',
             'Router': 'Router',
@@ -1036,13 +1036,13 @@ class VirtualBoxReflectionInfo:
             'Option_75': 'Option_75',
             'Option_119': 'Option_119',
         },
-        'VFSType': { 
+        'VFSType': {
             'File': 'File',
             'Cloud': 'Cloud',
             'S3': 'S3',
             'WebDav': 'WebDav',
         },
-        'VFSFileType': { 
+        'VFSFileType': {
             'Unknown': 'Unknown',
             'Fifo': 'Fifo',
             'DevChar': 'DevChar',
@@ -1053,15 +1053,15 @@ class VirtualBoxReflectionInfo:
             'Socket': 'Socket',
             'WhiteOut': 'WhiteOut',
         },
-        'ImportOptions': { 
+        'ImportOptions': {
             'KeepAllMACs': 'KeepAllMACs',
             'KeepNATMACs': 'KeepNATMACs',
         },
-        'ExportOptions': { 
+        'ExportOptions': {
             'CreateManifest': 'CreateManifest',
             'ExportDVDImages': 'ExportDVDImages',
         },
-        'VirtualSystemDescriptionType': { 
+        'VirtualSystemDescriptionType': {
             'Ignore': 'Ignore',
             'OS': 'OS',
             'Name': 'Name',
@@ -1087,55 +1087,55 @@ class VirtualBoxReflectionInfo:
             'SoundCard': 'SoundCard',
             'SettingsFile': 'SettingsFile',
         },
-        'VirtualSystemDescriptionValueType': { 
+        'VirtualSystemDescriptionValueType': {
             'Reference': 'Reference',
             'Original': 'Original',
             'Auto': 'Auto',
             'ExtraConfig': 'ExtraConfig',
         },
-        'GraphicsControllerType': { 
+        'GraphicsControllerType': {
             'Null': 'Null',
             'VBoxVGA': 'VBoxVGA',
         },
-        'CleanupMode': { 
+        'CleanupMode': {
             'UnregisterOnly': 'UnregisterOnly',
             'DetachAllReturnNone': 'DetachAllReturnNone',
             'DetachAllReturnHardDisksOnly': 'DetachAllReturnHardDisksOnly',
             'Full': 'Full',
         },
-        'CloneMode': { 
+        'CloneMode': {
             'MachineState': 'MachineState',
             'MachineAndChildStates': 'MachineAndChildStates',
             'AllStates': 'AllStates',
         },
-        'CloneOptions': { 
+        'CloneOptions': {
             'Link': 'Link',
             'KeepAllMACs': 'KeepAllMACs',
             'KeepNATMACs': 'KeepNATMACs',
             'KeepDiskNames': 'KeepDiskNames',
         },
-        'AutostopType': { 
+        'AutostopType': {
             'Disabled': 'Disabled',
             'SaveState': 'SaveState',
             'PowerOff': 'PowerOff',
             'AcpiShutdown': 'AcpiShutdown',
         },
-        'HostNetworkInterfaceMediumType': { 
+        'HostNetworkInterfaceMediumType': {
             'Unknown': 'Unknown',
             'Ethernet': 'Ethernet',
             'PPP': 'PPP',
             'SLIP': 'SLIP',
         },
-        'HostNetworkInterfaceStatus': { 
+        'HostNetworkInterfaceStatus': {
             'Unknown': 'Unknown',
             'Up': 'Up',
             'Down': 'Down',
         },
-        'HostNetworkInterfaceType': { 
+        'HostNetworkInterfaceType': {
             'Bridged': 'Bridged',
             'HostOnly': 'HostOnly',
         },
-        'AdditionsFacilityType': { 
+        'AdditionsFacilityType': {
             'None': 'None',
             'VBoxGuestDriver': 'VBoxGuestDriver',
             'AutoLogon': 'AutoLogon',
@@ -1145,7 +1145,7 @@ class VirtualBoxReflectionInfo:
             'Graphics': 'Graphics',
             'All': 'All',
         },
-        'AdditionsFacilityClass': { 
+        'AdditionsFacilityClass': {
             'None': 'None',
             'Driver': 'Driver',
             'Service': 'Service',
@@ -1154,7 +1154,7 @@ class VirtualBoxReflectionInfo:
             'ThirdParty': 'ThirdParty',
             'All': 'All',
         },
-        'AdditionsFacilityStatus': { 
+        'AdditionsFacilityStatus': {
             'Inactive': 'Inactive',
             'Paused': 'Paused',
             'PreInit': 'PreInit',
@@ -1165,17 +1165,17 @@ class VirtualBoxReflectionInfo:
             'Failed': 'Failed',
             'Unknown': 'Unknown',
         },
-        'AdditionsRunLevelType': { 
+        'AdditionsRunLevelType': {
             'None': 'None',
             'System': 'System',
             'Userland': 'Userland',
             'Desktop': 'Desktop',
         },
-        'AdditionsUpdateFlag': { 
+        'AdditionsUpdateFlag': {
             'None': 'None',
             'WaitForUpdateStartOnly': 'WaitForUpdateStartOnly',
         },
-        'GuestSessionStatus': { 
+        'GuestSessionStatus': {
             'Undefined': 'Undefined',
             'Starting': 'Starting',
             'Started': 'Started',
@@ -1186,13 +1186,13 @@ class VirtualBoxReflectionInfo:
             'Down': 'Down',
             'Error': 'Error',
         },
-        'GuestSessionWaitForFlag': { 
+        'GuestSessionWaitForFlag': {
             'None': 'None',
             'Start': 'Start',
             'Terminate': 'Terminate',
             'Status': 'Status',
         },
-        'GuestSessionWaitResult': { 
+        'GuestSessionWaitResult': {
             'None': 'None',
             'Start': 'Start',
             'Terminate': 'Terminate',
@@ -1201,7 +1201,7 @@ class VirtualBoxReflectionInfo:
             'Timeout': 'Timeout',
             'WaitFlagNotSupported': 'WaitFlagNotSupported',
         },
-        'GuestUserState': { 
+        'GuestUserState': {
             'Unknown': 'Unknown',
             'LoggedIn': 'LoggedIn',
             'LoggedOut': 'LoggedOut',
@@ -1219,19 +1219,19 @@ class VirtualBoxReflectionInfo:
             'GroupRemoved': 'GroupRemoved',
             'Elevated': 'Elevated',
         },
-        'FileSeekType': { 
+        'FileSeekType': {
             'Set': 'Set',
             'Current': 'Current',
         },
-        'ProcessInputFlag': { 
+        'ProcessInputFlag': {
             'None': 'None',
             'EndOfFile': 'EndOfFile',
         },
-        'ProcessOutputFlag': { 
+        'ProcessOutputFlag': {
             'None': 'None',
             'StdErr': 'StdErr',
         },
-        'ProcessWaitForFlag': { 
+        'ProcessWaitForFlag': {
             'None': 'None',
             'Start': 'Start',
             'Terminate': 'Terminate',
@@ -1239,7 +1239,7 @@ class VirtualBoxReflectionInfo:
             'StdOut': 'StdOut',
             'StdErr': 'StdErr',
         },
-        'ProcessWaitResult': { 
+        'ProcessWaitResult': {
             'None': 'None',
             'Start': 'Start',
             'Terminate': 'Terminate',
@@ -1251,28 +1251,28 @@ class VirtualBoxReflectionInfo:
             'StdErr': 'StdErr',
             'WaitFlagNotSupported': 'WaitFlagNotSupported',
         },
-        'CopyFileFlag': { 
+        'CopyFileFlag': {
             'None': 'None',
             'Recursive': 'Recursive',
             'Update': 'Update',
             'FollowLinks': 'FollowLinks',
         },
-        'DirectoryCreateFlag': { 
+        'DirectoryCreateFlag': {
             'None': 'None',
             'Parents': 'Parents',
         },
-        'DirectoryRemoveRecFlag': { 
+        'DirectoryRemoveRecFlag': {
             'None': 'None',
             'ContentAndDir': 'ContentAndDir',
             'ContentOnly': 'ContentOnly',
         },
-        'PathRenameFlag': { 
+        'PathRenameFlag': {
             'None': 'None',
             'NoReplace': 'NoReplace',
             'Replace': 'Replace',
             'NoSymlinks': 'NoSymlinks',
         },
-        'ProcessCreateFlag': { 
+        'ProcessCreateFlag': {
             'None': 'None',
             'WaitForProcessStartOnly': 'WaitForProcessStartOnly',
             'IgnoreOrphanedProcesses': 'IgnoreOrphanedProcesses',
@@ -1282,20 +1282,20 @@ class VirtualBoxReflectionInfo:
             'WaitForStdErr': 'WaitForStdErr',
             'ExpandArguments': 'ExpandArguments',
         },
-        'ProcessPriority': { 
+        'ProcessPriority': {
             'Invalid': 'Invalid',
             'Default': 'Default',
         },
-        'SymlinkType': { 
+        'SymlinkType': {
             'Unknown': 'Unknown',
             'Directory': 'Directory',
             'File': 'File',
         },
-        'SymlinkReadFlag': { 
+        'SymlinkReadFlag': {
             'None': 'None',
             'NoSymlinks': 'NoSymlinks',
         },
-        'ProcessStatus': { 
+        'ProcessStatus': {
             'Undefined': 'Undefined',
             'Starting': 'Starting',
             'Started': 'Started',
@@ -1309,14 +1309,14 @@ class VirtualBoxReflectionInfo:
             'Down': 'Down',
             'Error': 'Error',
         },
-        'ProcessInputStatus': { 
+        'ProcessInputStatus': {
             'Undefined': 'Undefined',
             'Broken': 'Broken',
             'Available': 'Available',
             'Written': 'Written',
             'Overflow': 'Overflow',
         },
-        'FileStatus': { 
+        'FileStatus': {
             'Undefined': 'Undefined',
             'Opening': 'Opening',
             'Open': 'Open',
@@ -1325,7 +1325,7 @@ class VirtualBoxReflectionInfo:
             'Down': 'Down',
             'Error': 'Error',
         },
-        'FsObjType': { 
+        'FsObjType': {
             'Undefined': 'Undefined',
             'FIFO': 'FIFO',
             'DevChar': 'DevChar',
@@ -1336,17 +1336,17 @@ class VirtualBoxReflectionInfo:
             'Socket': 'Socket',
             'Whiteout': 'Whiteout',
         },
-        'DragAndDropAction': { 
+        'DragAndDropAction': {
             'Ignore': 'Ignore',
             'Copy': 'Copy',
             'Move': 'Move',
             'Link': 'Link',
         },
-        'DirectoryOpenFlag': { 
+        'DirectoryOpenFlag': {
             'None': 'None',
             'NoSymlinks': 'NoSymlinks',
         },
-        'MediumState': { 
+        'MediumState': {
             'NotCreated': 'NotCreated',
             'Created': 'Created',
             'LockedRead': 'LockedRead',
@@ -1355,7 +1355,7 @@ class VirtualBoxReflectionInfo:
             'Creating': 'Creating',
             'Deleting': 'Deleting',
         },
-        'MediumType': { 
+        'MediumType': {
             'Normal': 'Normal',
             'Immutable': 'Immutable',
             'Writethrough': 'Writethrough',
@@ -1363,7 +1363,7 @@ class VirtualBoxReflectionInfo:
             'Readonly': 'Readonly',
             'MultiAttach': 'MultiAttach',
         },
-        'MediumVariant': { 
+        'MediumVariant': {
             'Standard': 'Standard',
             'VmdkSplit2G': 'VmdkSplit2G',
             'VmdkRawDisk': 'VmdkRawDisk',
@@ -1373,19 +1373,19 @@ class VirtualBoxReflectionInfo:
             'Diff': 'Diff',
             'NoCreateDir': 'NoCreateDir',
         },
-        'DataType': { 
+        'DataType': {
             'Int32': 'Int32',
             'Int8': 'Int8',
             'String': 'String',
         },
-        'DataFlags': { 
+        'DataFlags': {
             'None': 'None',
             'Mandatory': 'Mandatory',
             'Expert': 'Expert',
             'Array': 'Array',
             'FlagMask': 'FlagMask',
         },
-        'MediumFormatCapabilities': { 
+        'MediumFormatCapabilities': {
             'Uuid': 'Uuid',
             'CreateFixed': 'CreateFixed',
             'CreateDynamic': 'CreateDynamic',
@@ -1398,7 +1398,7 @@ class VirtualBoxReflectionInfo:
             'VFS': 'VFS',
             'CapabilityMask': 'CapabilityMask',
         },
-        'MouseButtonState': { 
+        'MouseButtonState': {
             'LeftButton': 'LeftButton',
             'RightButton': 'RightButton',
             'MiddleButton': 'MiddleButton',
@@ -1408,17 +1408,17 @@ class VirtualBoxReflectionInfo:
             'XButton2': 'XButton2',
             'MouseStateMask': 'MouseStateMask',
         },
-        'TouchContactState': { 
+        'TouchContactState': {
             'None': 'None',
             'InContact': 'InContact',
             'InRange': 'InRange',
             'ContactStateMask': 'ContactStateMask',
         },
-        'FramebufferPixelFormat': { 
+        'FramebufferPixelFormat': {
             'Opaque': 'Opaque',
             'FOURCC_RGB': 'FOURCC_RGB',
         },
-        'NetworkAttachmentType': { 
+        'NetworkAttachmentType': {
             'Null': 'Null',
             'NAT': 'NAT',
             'Bridged': 'Bridged',
@@ -1427,7 +1427,7 @@ class VirtualBoxReflectionInfo:
             'Generic': 'Generic',
             'NATNetwork': 'NATNetwork',
         },
-        'NetworkAdapterType': { 
+        'NetworkAdapterType': {
             'Null': 'Null',
             'Am79C970A': 'Am79C970A',
             'Am79C973': 'Am79C973',
@@ -1436,24 +1436,24 @@ class VirtualBoxReflectionInfo:
             'I82545EM': 'I82545EM',
             'Virtio': 'Virtio',
         },
-        'NetworkAdapterPromiscModePolicy': { 
+        'NetworkAdapterPromiscModePolicy': {
             'Deny': 'Deny',
             'AllowNetwork': 'AllowNetwork',
             'AllowAll': 'AllowAll',
         },
-        'PortMode': { 
+        'PortMode': {
             'Disconnected': 'Disconnected',
             'HostPipe': 'HostPipe',
             'HostDevice': 'HostDevice',
             'RawFile': 'RawFile',
         },
-        'USBControllerType': { 
+        'USBControllerType': {
             'Null': 'Null',
             'OHCI': 'OHCI',
             'EHCI': 'EHCI',
             'Last': 'Last',
         },
-        'USBDeviceState': { 
+        'USBDeviceState': {
             'NotSupported': 'NotSupported',
             'Unavailable': 'Unavailable',
             'Busy': 'Busy',
@@ -1461,12 +1461,12 @@ class VirtualBoxReflectionInfo:
             'Held': 'Held',
             'Captured': 'Captured',
         },
-        'USBDeviceFilterAction': { 
+        'USBDeviceFilterAction': {
             'Null': 'Null',
             'Ignore': 'Ignore',
             'Hold': 'Hold',
         },
-        'AudioDriverType': { 
+        'AudioDriverType': {
             'Null': 'Null',
             'WinMM': 'WinMM',
             'OSS': 'OSS',
@@ -1477,23 +1477,23 @@ class VirtualBoxReflectionInfo:
             'Pulse': 'Pulse',
             'SolAudio': 'SolAudio',
         },
-        'AudioControllerType': { 
+        'AudioControllerType': {
             'AC97': 'AC97',
             'SB16': 'SB16',
             'HDA': 'HDA',
         },
-        'AuthType': { 
+        'AuthType': {
             'Null': 'Null',
             'External': 'External',
             'Guest': 'Guest',
         },
-        'Reason': { 
+        'Reason': {
             'Unspecified': 'Unspecified',
             'HostSuspend': 'HostSuspend',
             'HostResume': 'HostResume',
             'HostBatteryLow': 'HostBatteryLow',
         },
-        'StorageBus': { 
+        'StorageBus': {
             'Null': 'Null',
             'IDE': 'IDE',
             'SATA': 'SATA',
@@ -1501,7 +1501,7 @@ class VirtualBoxReflectionInfo:
             'Floppy': 'Floppy',
             'SAS': 'SAS',
         },
-        'StorageControllerType': { 
+        'StorageControllerType': {
             'Null': 'Null',
             'LsiLogic': 'LsiLogic',
             'BusLogic': 'BusLogic',
@@ -1512,26 +1512,26 @@ class VirtualBoxReflectionInfo:
             'I82078': 'I82078',
             'LsiLogicSas': 'LsiLogicSas',
         },
-        'ChipsetType': { 
+        'ChipsetType': {
             'Null': 'Null',
             'PIIX3': 'PIIX3',
             'ICH9': 'ICH9',
         },
-        'NATAliasMode': { 
+        'NATAliasMode': {
             'AliasLog': 'AliasLog',
             'AliasProxyOnly': 'AliasProxyOnly',
             'AliasUseSamePorts': 'AliasUseSamePorts',
         },
-        'NATProtocol': { 
+        'NATProtocol': {
             'UDP': 'UDP',
             'TCP': 'TCP',
         },
-        'BandwidthGroupType': { 
+        'BandwidthGroupType': {
             'Null': 'Null',
             'Disk': 'Disk',
             'Network': 'Network',
         },
-        'VBoxEventType': { 
+        'VBoxEventType': {
             'Invalid': 'Invalid',
             'Any': 'Any',
             'Vetoable': 'Vetoable',
@@ -1604,11 +1604,11 @@ class VirtualBoxReflectionInfo:
             'OnHostNameResolutionConfigurationChange': 'OnHostNameResolutionConfigurationChange',
             'Last': 'Last',
         },
-        'GuestMouseEventMode': { 
+        'GuestMouseEventMode': {
             'Relative': 'Relative',
             'Absolute': 'Absolute',
         },
-        'GuestMonitorChangedEventType': { 
+        'GuestMonitorChangedEventType': {
             'Enabled': 'Enabled',
             'Disabled': 'Disabled',
             'NewOrigin': 'NewOrigin',
@@ -2876,25 +2876,26 @@ class VirtualBoxReflectionInfo:
         'VBOX_E_INVALID_SESSION_STATE': 'VBOX_E_INVALID_SESSION_STATE',
         'VBOX_E_OBJECT_IN_USE': 'VBOX_E_OBJECT_IN_USE',
     }
-      
 
-   def __getattr__(self,attr):
-      if self.isSym:
+
+def __getattr__(self, attr):
+    if self.isSym:
         v = self._ValuesFlatSym.get(attr)
-      else:
+    else:
         v = self._ValuesFlat.get(attr)
-      if v is not None:
-         return v
-      else:
-         raise AttributeError
+    if v is not None:
+        return v
+    else:
+        raise AttributeError
 
-   def all_values(self,enum_name):
-      if self.isSym:
+
+def all_values(self, enum_name):
+    if self.isSym:
         vals = self._ValuesSym.get(enum_name)
-      else:
+    else:
         vals = self._Values.get(enum_name)
-      if vals is not None:
-         return vals
-      else:
-         return {}
+    if vals is not None:
+        return vals
+    else:
+        return {}
 

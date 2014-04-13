@@ -10,7 +10,7 @@ VirtualBox OSE distribution. VirtualBox OSE is distributed in the
 hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
 """
 
-import sys,os
+import sys, os
 import traceback
 
 # To set Python bitness on OSX use 'export VERSIONER_PYTHON_PREFER_32_BIT=yes'
@@ -31,6 +31,7 @@ os.environ["VBOX_SDK_PATH"] = VboxSdkDir
 sys.path.append(VboxBinDir)
 
 from .VirtualBox_constants import VirtualBoxReflectionInfo
+
 
 class PerfCollector:
     """ This class provides a wrapper over IPerformanceCollector in order to
@@ -85,10 +86,10 @@ class PerfCollector:
         # parameters (see #3953) for MSCOM.
         if self.isMscom:
             (values, names, objects, names_out, objects_out, units, scales, sequence_numbers,
-                indices, lengths) = self.collector.queryMetricsData(names, objects)
+             indices, lengths) = self.collector.queryMetricsData(names, objects)
         else:
             (values, names_out, objects_out, units, scales, sequence_numbers,
-                indices, lengths) = self.collector.queryMetricsData(names, objects)
+             indices, lengths) = self.collector.queryMetricsData(names, objects)
         out = []
         for i in xrange(0, len(names_out)):
             scale = int(scales[i])
@@ -97,20 +98,24 @@ class PerfCollector:
             else:
                 fmt = '%d %s'
             out.append({
-                'name':str(names_out[i]),
-                'object':str(objects_out[i]),
-                'unit':str(units[i]),
-                'scale':scale,
-                'values':[int(values[j]) for j in xrange(int(indices[i]), int(indices[i])+int(lengths[i]))],
-                'values_as_string':'['+', '.join([fmt % (int(values[j])/scale, units[i]) for j in xrange(int(indices[i]), int(indices[i])+int(lengths[i]))])+']'
+                'name': str(names_out[i]),
+                'object': str(objects_out[i]),
+                'unit': str(units[i]),
+                'scale': scale,
+                'values': [int(values[j]) for j in xrange(int(indices[i]), int(indices[i]) + int(lengths[i]))],
+                'values_as_string': '[' + ', '.join([fmt % (int(values[j]) / scale, units[i]) for j in
+                                                     xrange(int(indices[i]), int(indices[i]) + int(lengths[i]))]) + ']'
             })
         return out
 
-def ComifyName(name):
-    return name[0].capitalize()+name[1:]
 
-_COMForward = { 'getattr' : None,
-                'setattr' : None}
+def ComifyName(name):
+    return name[0].capitalize() + name[1:]
+
+
+_COMForward = {'getattr': None,
+               'setattr': None}
+
 
 def CustomGetAttr(self, attr):
     # fastpath
@@ -123,15 +128,17 @@ def CustomGetAttr(self, attr):
             setattr(self.__class__, attr, self.__class__.__dict__[k])
             return getattr(self, k)
     try:
-        return _COMForward['getattr'](self,ComifyName(attr))
+        return _COMForward['getattr'](self, ComifyName(attr))
     except AttributeError:
-        return _COMForward['getattr'](self,attr)
+        return _COMForward['getattr'](self, attr)
+
 
 def CustomSetAttr(self, attr, value):
     try:
         return _COMForward['setattr'](self, ComifyName(attr), value)
     except AttributeError:
         return _COMForward['setattr'](self, attr, value)
+
 
 class PlatformMSCOM:
     # Class to fake access to constants in style of foo.bar.boo
@@ -141,9 +148,9 @@ class PlatformMSCOM:
             self.__dict__['_name'] = name
             self.__dict__['_consts'] = {}
             try:
-                self.__dict__['_depth']=parent.__dict__['_depth']+1
+                self.__dict__['_depth'] = parent.__dict__['_depth'] + 1
             except:
-                self.__dict__['_depth']=0
+                self.__dict__['_depth'] = 0
                 if self.__dict__['_depth'] > 4:
                     raise AttributeError
 
@@ -158,77 +165,81 @@ class PlatformMSCOM:
 
             fake = consts.get(attr, None)
             if fake != None:
-               return fake
+                return fake
             try:
-               name = self.__dict__['_name']
-               parent = self.__dict__['_parent']
-               while parent != None:
-                  if parent._name is not None:
-                    name = parent._name+'_'+name
-                  parent = parent._parent
+                name = self.__dict__['_name']
+                parent = self.__dict__['_parent']
+                while parent != None:
+                    if parent._name is not None:
+                        name = parent._name + '_' + name
+                    parent = parent._parent
 
-               if name is not None:
-                  name += "_" + attr
-               else:
-                  name = attr
-               return win32com.client.constants.__getattr__(name)
+                if name is not None:
+                    name += "_" + attr
+                else:
+                    name = attr
+                return win32com.client.constants.__getattr__(name)
             except AttributeError as e:
-               fake = PlatformMSCOM.ConstantFake(self, attr)
-               consts[attr] = fake
-               return fake
+                fake = PlatformMSCOM.ConstantFake(self, attr)
+                consts[attr] = fake
+                return fake
 
 
     class InterfacesWrapper:
-            def __init__(self):
-                self.__dict__['_rootFake'] = PlatformMSCOM.ConstantFake(None, None)
+        def __init__(self):
+            self.__dict__['_rootFake'] = PlatformMSCOM.ConstantFake(None, None)
 
-            def __getattr__(self, a):
-                import win32com
-                from win32com.client import constants
-                if a.startswith("__"):
-                    raise AttributeError
-                try:
-                    return win32com.client.constants.__getattr__(a)
-                except AttributeError as e:
-                    return self.__dict__['_rootFake'].__getattr__(a)
+        def __getattr__(self, a):
+            import win32com
+            from win32com.client import constants
 
-    VBOX_TLB_GUID  = '{D7569351-1750-46F0-936E-BD127D5BC264}'
-    VBOX_TLB_LCID  = 0
+            if a.startswith("__"):
+                raise AttributeError
+            try:
+                return win32com.client.constants.__getattr__(a)
+            except AttributeError as e:
+                return self.__dict__['_rootFake'].__getattr__(a)
+
+    VBOX_TLB_GUID = '{D7569351-1750-46F0-936E-BD127D5BC264}'
+    VBOX_TLB_LCID = 0
     VBOX_TLB_MAJOR = 1
     VBOX_TLB_MINOR = 3
 
     def __init__(self, params):
-            from win32com import universal
-            from win32com.client import gencache, DispatchBaseClass
-            from win32com.client import constants, getevents
-            import win32com
-            import pythoncom
-            import win32api
-            from win32con import DUPLICATE_SAME_ACCESS
-            from win32api import GetCurrentThread,GetCurrentThreadId,DuplicateHandle,GetCurrentProcess
-            import threading
-            pid = GetCurrentProcess()
-            self.tid = GetCurrentThreadId()
-            handle = DuplicateHandle(pid, GetCurrentThread(), pid, 0, 0, DUPLICATE_SAME_ACCESS)
-            self.handles = []
-            self.handles.append(handle)
-            _COMForward['getattr'] = DispatchBaseClass.__dict__['__getattr__']
-            DispatchBaseClass.__getattr__ = CustomGetAttr
-            _COMForward['setattr'] = DispatchBaseClass.__dict__['__setattr__']
-            DispatchBaseClass.__setattr__ = CustomSetAttr
-            win32com.client.gencache.EnsureDispatch('VirtualBox.Session')
-            win32com.client.gencache.EnsureDispatch('VirtualBox.VirtualBox')
-            self.oIntCv = threading.Condition()
-            self.fInterrupted = False;
+        from win32com import universal
+        from win32com.client import gencache, DispatchBaseClass
+        from win32com.client import constants, getevents
+        import win32com
+        import pythoncom
+        import win32api
+        from win32con import DUPLICATE_SAME_ACCESS
+        from win32api import GetCurrentThread, GetCurrentThreadId, DuplicateHandle, GetCurrentProcess
+        import threading
+
+        pid = GetCurrentProcess()
+        self.tid = GetCurrentThreadId()
+        handle = DuplicateHandle(pid, GetCurrentThread(), pid, 0, 0, DUPLICATE_SAME_ACCESS)
+        self.handles = []
+        self.handles.append(handle)
+        _COMForward['getattr'] = DispatchBaseClass.__dict__['__getattr__']
+        DispatchBaseClass.__getattr__ = CustomGetAttr
+        _COMForward['setattr'] = DispatchBaseClass.__dict__['__setattr__']
+        DispatchBaseClass.__setattr__ = CustomSetAttr
+        win32com.client.gencache.EnsureDispatch('VirtualBox.Session')
+        win32com.client.gencache.EnsureDispatch('VirtualBox.VirtualBox')
+        self.oIntCv = threading.Condition()
+        self.fInterrupted = False;
 
     def getSessionObject(self, vbox):
         import win32com
         from win32com.client import Dispatch
+
         return win32com.client.Dispatch("VirtualBox.Session")
 
     def getVirtualBox(self):
         import win32com
         from win32com.client import Dispatch
+
         return win32com.client.Dispatch("VirtualBox.VirtualBox")
 
     def getType(self):
@@ -242,10 +253,12 @@ class PlatformMSCOM:
 
     def initPerThread(self):
         import pythoncom
+
         pythoncom.CoInitializeEx(0)
 
     def deinitPerThread(self):
         import pythoncom
+
         pythoncom.CoUninitialize()
 
     def createListener(self, impl, arg):
@@ -269,14 +282,14 @@ class PlatformMSCOM:
         str += "   HandleEvent=BaseClass.handleEvent\n"
         str += "   def __init__(self): BaseClass.__init__(self, arg)\n"
         str += "result = win32com.server.util.wrap(ListenerImpl())\n"
-        exec(str,d,d)
+        exec (str, d, d)
         return d['result']
 
     def waitForEvents(self, timeout):
         from win32api import GetCurrentThreadId
         from win32event import INFINITE
         from win32event import MsgWaitForMultipleObjects, \
-                               QS_ALLINPUT, WAIT_TIMEOUT, WAIT_OBJECT_0
+            QS_ALLINPUT, WAIT_TIMEOUT, WAIT_OBJECT_0
         from pythoncom import PumpWaitingMessages
         import types
 
@@ -285,13 +298,15 @@ class PlatformMSCOM:
         if (self.tid != GetCurrentThreadId()):
             raise Exception("wait for events from the same thread you inited!")
 
-        if timeout < 0:     cMsTimeout = INFINITE
-        else:               cMsTimeout = timeout
+        if timeout < 0:
+            cMsTimeout = INFINITE
+        else:
+            cMsTimeout = timeout
         rc = MsgWaitForMultipleObjects(self.handles, 0, cMsTimeout, QS_ALLINPUT)
-        if rc >= WAIT_OBJECT_0 and rc < WAIT_OBJECT_0+len(self.handles):
+        if rc >= WAIT_OBJECT_0 and rc < WAIT_OBJECT_0 + len(self.handles):
             # is it possible?
             rc = 2;
-        elif rc==WAIT_OBJECT_0 + len(self.handles):
+        elif rc == WAIT_OBJECT_0 + len(self.handles):
             # Waiting messages
             PumpWaitingMessages()
             rc = 0;
@@ -320,6 +335,7 @@ class PlatformMSCOM:
         """
         from win32api import PostThreadMessage
         from win32con import WM_USER
+
         self.oIntCv.acquire()
         self.fInterrupted = True
         self.oIntCv.release()
@@ -334,29 +350,33 @@ class PlatformMSCOM:
         from win32file import CloseHandle
 
         for h in self.handles:
-           if h is not None:
-              CloseHandle(h)
+            if h is not None:
+                CloseHandle(h)
         self.handles = None
         pythoncom.CoUninitialize()
         pass
 
     def queryInterface(self, obj, klazzName):
         from win32com.client import CastTo
+
         return CastTo(obj, klazzName)
+
 
 class PlatformXPCOM:
     def __init__(self, params):
-        sys.path.append(VboxSdkDir+'/bindings/xpcom/python/')
+        sys.path.append(VboxSdkDir + '/bindings/xpcom/python/')
         import xpcom.vboxxpcom
         import xpcom
         import xpcom.components
 
     def getSessionObject(self, vbox):
         import xpcom.components
+
         return xpcom.components.classes["@virtualbox.org/Session;1"].createInstance()
 
     def getVirtualBox(self):
         import xpcom.components
+
         return xpcom.components.classes["@virtualbox.org/VirtualBox;1"].createInstance()
 
     def getType(self):
@@ -366,14 +386,16 @@ class PlatformXPCOM:
         return False
 
     def getArray(self, obj, field):
-        return obj.__getattr__('get'+ComifyName(field))()
+        return obj.__getattr__('get' + ComifyName(field))()
 
     def initPerThread(self):
         import xpcom
+
         xpcom._xpcom.AttachThread()
 
     def deinitPerThread(self):
         import xpcom
+
         xpcom._xpcom.DetachThread()
 
     def createListener(self, impl, arg):
@@ -386,28 +408,33 @@ class PlatformXPCOM:
         str += "   _com_interfaces_ = xpcom.components.interfaces.IEventListener\n"
         str += "   def __init__(self): BaseClass.__init__(self, arg)\n"
         str += "result = ListenerImpl()\n"
-        exec(str,d,d)
+        exec (str, d, d)
         return d['result']
 
     def waitForEvents(self, timeout):
         import xpcom
+
         return xpcom._xpcom.WaitForEvents(timeout)
 
     def interruptWaitEvents(self):
         import xpcom
+
         return xpcom._xpcom.InterruptWait()
 
     def deinit(self):
         import xpcom
+
         xpcom._xpcom.DeinitCOM()
 
     def queryInterface(self, obj, klazzName):
         import xpcom.components
+
         return obj.queryInterface(getattr(xpcom.components.interfaces, klazzName))
+
 
 class PlatformWEBSERVICE:
     def __init__(self, params):
-        sys.path.append(os.path.join(VboxSdkDir,'bindings', 'webservice', 'python', 'lib'))
+        sys.path.append(os.path.join(VboxSdkDir, 'bindings', 'webservice', 'python', 'lib'))
         #import VirtualBox_services
         import VirtualBox_wrappers
         from VirtualBox_wrappers import IWebsessionManager2
@@ -430,8 +457,9 @@ class PlatformWEBSERVICE:
 
     def connect(self, url, user, passwd):
         if self.vbox is not None:
-             self.disconnect()
+            self.disconnect()
         from VirtualBox_wrappers import IWebsessionManager2
+
         if url is None:
             url = ""
         self.url = url
@@ -444,14 +472,14 @@ class PlatformWEBSERVICE:
         self.wsmgr = IWebsessionManager2(self.url)
         self.vbox = self.wsmgr.logon(self.user, self.password)
         if not self.vbox.handle:
-            raise Exception("cannot connect to '"+self.url+"' as '"+self.user+"'")
+            raise Exception("cannot connect to '" + self.url + "' as '" + self.user + "'")
         return self.vbox
 
     def disconnect(self):
         if self.vbox is not None and self.wsmgr is not None:
-                self.wsmgr.logoff(self.vbox)
-                self.vbox = None
-                self.wsmgr = None
+            self.wsmgr.logoff(self.vbox)
+            self.vbox = None
+            self.wsmgr = None
 
     def getType(self):
         return 'WEBSERVICE'
@@ -481,19 +509,20 @@ class PlatformWEBSERVICE:
 
     def deinit(self):
         try:
-           disconnect()
+            disconnect()
         except:
-           pass
+            pass
 
     def queryInterface(self, obj, klazzName):
         d = {}
         d['obj'] = obj
         str = ""
-        str += "from VirtualBox_wrappers import "+klazzName+"\n"
-        str += "result = "+klazzName+"(obj.mgr,obj.handle)\n"
+        str += "from VirtualBox_wrappers import " + klazzName + "\n"
+        str += "result = " + klazzName + "(obj.mgr,obj.handle)\n"
         # wrong, need to test if class indeed implements this interface
-        exec(str,d,d)
+        exec (str, d, d)
         return d['result']
+
 
 class SessionManager:
     def __init__(self, mgr):
@@ -501,6 +530,7 @@ class SessionManager:
 
     def getSessionObject(self, vbox):
         return self.mgr.platform.getSessionObject(vbox)
+
 
 class VirtualBoxManager:
     def __init__(self, style, platparams):
@@ -510,8 +540,7 @@ class VirtualBoxManager:
             else:
                 style = "XPCOM"
 
-
-        exec("self.platform = Platform"+style+"(platparams)")
+        exec ("self.platform = Platform" + style + "(platparams)")
         # for webservices, enums are symbolic
         self.constants = VirtualBoxReflectionInfo(style == "WEBSERVICE")
         self.type = self.platform.getType()
@@ -526,7 +555,7 @@ class VirtualBoxManager:
             traceback.print_exc()
             raise ne
         except Exception as e:
-            print("init exception: ",e)
+            print("init exception: ", e)
             traceback.print_exc()
             if self.remote:
                 self.vbox = None
@@ -537,7 +566,7 @@ class VirtualBoxManager:
         return self.platform.getArray(obj, field)
 
     def getVirtualBox(self):
-        return  self.platform.getVirtualBox()
+        return self.platform.getVirtualBox()
 
     def __del__(self):
         self.deinit()
@@ -553,14 +582,14 @@ class VirtualBoxManager:
     def initPerThread(self):
         self.platform.initPerThread()
 
-    def openMachineSession(self, mach, permitSharing = True):
-         session = self.mgr.getSessionObject(self.vbox)
-         if permitSharing:
-             type = self.constants.LockType_Shared
-         else:
-             type = self.constants.LockType_Write
-         mach.lockMachine(session, type)
-         return session
+    def openMachineSession(self, mach, permitSharing=True):
+        session = self.mgr.getSessionObject(self.vbox)
+        if permitSharing:
+            type = self.constants.LockType_Shared
+        else:
+            type = self.constants.LockType_Write
+        mach.lockMachine(session, type)
+        return session
 
     def closeMachineSession(self, session):
         if session is not None:
@@ -569,7 +598,7 @@ class VirtualBoxManager:
     def deinitPerThread(self):
         self.platform.deinitPerThread()
 
-    def createListener(self, impl, arg = None):
+    def createListener(self, impl, arg=None):
         return self.platform.createListener(impl, arg)
 
     def waitForEvents(self, timeout):
