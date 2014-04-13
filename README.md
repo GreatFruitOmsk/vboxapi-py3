@@ -1,7 +1,6 @@
-vboxapi-py3
-===========
+vboxapi for python 3
+====================
 
-Updates to Oracle's VirtualBox Python SDK for Python 3.  The files here are
-normally found in VirtualBox/sdk/install/vboxapi.  I've used them successfully
-in another project to start/stop instances, send keystrokes and take screen
-shots.  Perhaps this will be useful for somebody else.
+Updates to Oracle's VirtualBox Python SDK (normally found at VirtualBox/sdk/install/vboxapi) for Python 3.
+
+setup.py was added to be able to install it via pip.
