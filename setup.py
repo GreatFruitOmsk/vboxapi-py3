@@ -11,7 +11,6 @@ setup(
 
     # Author details
     author='Oracle Corp.',
-    author_email='pypa-dev@googlegroups.com',
 
     # Choose your license
     license='GPLv2',
