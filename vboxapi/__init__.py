@@ -10,10 +10,8 @@ VirtualBox OSE distribution. VirtualBox OSE is distributed in the
 hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
 """
 
-import sys
-import os
+import sys, os
 import traceback
-
 
 # To set Python bitness on OSX use 'export VERSIONER_PYTHON_PREFER_32_BIT=yes'
 
@@ -162,6 +160,7 @@ class PlatformMSCOM:
 
         def __getattr__(self, attr):
             import win32com
+            from win32com.client import constants
 
             if attr.startswith("__"):
                 raise AttributeError
@@ -196,6 +195,7 @@ class PlatformMSCOM:
 
         def __getattr__(self, a):
             import win32com
+            from win32com.client import constants
 
             if a.startswith("__"):
                 raise AttributeError
@@ -210,7 +210,12 @@ class PlatformMSCOM:
     VBOX_TLB_MINOR = 3
 
     def __init__(self, params):
+        from win32com import universal
+        from win32com.client import gencache, DispatchBaseClass
+        from win32com.client import constants, getevents
         import win32com
+        import pythoncom
+        import win32api
         from win32con import DUPLICATE_SAME_ACCESS
         from win32api import GetCurrentThread, GetCurrentThreadId, DuplicateHandle, GetCurrentProcess
         import threading
@@ -231,11 +236,13 @@ class PlatformMSCOM:
 
     def getSessionObject(self, vbox):
         import win32com
+        from win32com.client import Dispatch
 
         return win32com.client.Dispatch("VirtualBox.Session")
 
     def getVirtualBox(self):
         import win32com
+        from win32com.client import Dispatch
 
         return win32com.client.Dispatch("VirtualBox.VirtualBox")
 
@@ -279,12 +286,14 @@ class PlatformMSCOM:
         str += "   HandleEvent=BaseClass.handleEvent\n"
         str += "   def __init__(self): BaseClass.__init__(self, arg)\n"
         str += "result = win32com.server.util.wrap(ListenerImpl())\n"
-        exec(str, d, d)
+        exec (str, d, d)
         return d['result']
 
     def waitForEvents(self, timeout):
         from win32api import GetCurrentThreadId
         from win32event import INFINITE
+        from win32event import MsgWaitForMultipleObjects, \
+            QS_ALLINPUT, WAIT_TIMEOUT, WAIT_OBJECT_0
         from pythoncom import PumpWaitingMessages
         import types
 
@@ -360,6 +369,9 @@ class PlatformMSCOM:
 class PlatformXPCOM:
     def __init__(self, params):
         sys.path.append(VboxSdkDir + '/bindings/xpcom/python/')
+        import xpcom.vboxxpcom
+        import xpcom
+        import xpcom.components
 
     def getSessionObject(self, vbox):
         import xpcom.components
@@ -400,7 +412,7 @@ class PlatformXPCOM:
         str += "   _com_interfaces_ = xpcom.components.interfaces.IEventListener\n"
         str += "   def __init__(self): BaseClass.__init__(self, arg)\n"
         str += "result = ListenerImpl()\n"
-        exec(str, d, d)
+        exec (str, d, d)
         return d['result']
 
     def waitForEvents(self, timeout):
@@ -428,6 +440,8 @@ class PlatformWEBSERVICE:
     def __init__(self, params):
         sys.path.append(os.path.join(VboxSdkDir, 'bindings', 'webservice', 'python', 'lib'))
         #import VirtualBox_services
+        import VirtualBox_wrappers
+        from VirtualBox_wrappers import IWebsessionManager2
 
         if params is not None:
             self.user = params.get("user", "")
@@ -510,7 +524,7 @@ class PlatformWEBSERVICE:
         str += "from VirtualBox_wrappers import " + klazzName + "\n"
         str += "result = " + klazzName + "(obj.mgr,obj.handle)\n"
         # wrong, need to test if class indeed implements this interface
-        exec(str, d, d)
+        exec (str, d, d)
         return d['result']
 
 
@@ -530,7 +544,7 @@ class VirtualBoxManager:
             else:
                 style = "XPCOM"
 
-        exec("self.platform = Platform" + style + "(platparams)")
+        exec ("self.platform = Platform" + style + "(platparams)")
         # for webservices, enums are symbolic
         self.constants = VirtualBoxReflectionInfo(style == "WEBSERVICE")
         self.type = self.platform.getType()
