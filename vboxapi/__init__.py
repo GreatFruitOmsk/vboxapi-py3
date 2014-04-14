@@ -28,7 +28,7 @@ if VboxSdkDir is None:
     if sys.platform.startswith('win'):
         VboxSdkDir = "C:\\Program Files\\Oracle\\VirtualBox\\sdk\\"
     elif sys.platform.startswith('darwin'):
-        VboxBinDir = "/Applications/VirtualBox.app/Contents/MacOS/sdk/"
+        VboxSdkDir = "/Applications/VirtualBox.app/Contents/MacOS/sdk/"
 
 os.environ["VBOX_PROGRAM_PATH"] = VboxBinDir
 os.environ["VBOX_SDK_PATH"] = VboxSdkDir
