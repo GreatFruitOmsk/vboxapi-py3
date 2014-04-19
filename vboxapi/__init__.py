@@ -16,7 +16,7 @@ __copyright__ = \
     VirtualBox OSE distribution. VirtualBox OSE is distributed in the
     hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
     """
-__version__ = "$Revision$"
+__version__ = "$Revision: 91042 $"
 
 
 # Note! To set Python bitness on OSX use 'export VERSIONER_PYTHON_PREFER_32_BIT=yes'
