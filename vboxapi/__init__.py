@@ -453,13 +453,13 @@ class PlatformMSCOM(PlatformBase):
         """ Class to fake access to constants in style of foo.bar.boo """
 
         def __init__(self, parent, name):
-            self.__dict__['_parent'] = parent
-            self.__dict__['_name'] = name
-            self.__dict__['_consts'] = {}
+            setattr(self, '_parent', parent)
+            setattr(self, '_name', name)
+            setattr(self, '_consts', {})
             try:
-                self.__dict__['_depth'] = parent.__dict__['_depth'] + 1
+                setattr(self, '_depth', parent.__dict__['_depth'] + 1)
             except:
-                self.__dict__['_depth'] = 0
+                setattr(self, '_depth', 0)
                 if self.__dict__['_depth'] > 4:
                     raise AttributeError
 
@@ -495,7 +495,7 @@ class PlatformMSCOM(PlatformBase):
 
     class InterfacesWrapper:
         def __init__(self):
-            self.__dict__['_rootFake'] = PlatformMSCOM.ConstantFake(None, None)
+            setattr(self, '_rootFake', PlatformMSCOM.ConstantFake(None, None))
 
         def __getattr__(self, a):
             import win32com
@@ -537,10 +537,11 @@ class PlatformMSCOM(PlatformBase):
         # Hack the COM dispatcher base class so we can modify method and
         # attribute names to match those in xpcom.
         if _g_dCOMForward['setattr'] is None:
+
             _g_dCOMForward['getattr'] = DispatchBaseClass.__dict__['__getattr__']
-            DispatchBaseClass.__dict__['__getattr__'] = _CustomGetAttr
             _g_dCOMForward['setattr'] = DispatchBaseClass.__dict__['__setattr__']
-            DispatchBaseClass.__dict__['__setattr__'] = _CustomSetAttr
+            setattr(DispatchBaseClass, '__getattr__', _CustomGetAttr)
+            setattr(DispatchBaseClass, '__setattr__', _CustomSetAttr)
 
         # Hack the exception base class so the users doesn't need to check for
         # XPCOM or COM and do different things.
