@@ -1048,10 +1048,10 @@ class VirtualBoxManager(object):
         # Get the virtualbox singleton.
         try:
             self.vbox = self.platform.getVirtualBox()
-        except NameError as ne:
+        except NameError:
             print_("Installation problem: check that appropriate libs in place")
             traceback.print_exc()
-            raise ne
+            raise
         except Exception:
             _, e, _ = sys.exc_info()
             print_("init exception: ", e)
